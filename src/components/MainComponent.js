@@ -55,7 +55,7 @@ class Main extends Component {
                 <Route path='/home' element={<HomePage/>}/>
                 <Route exact path='/menu' element={<Menu dishes={this.state.dishes} />} />
                 <Route path='/menu/:dishId' element={<DishWithID />}/>
-                <Route exact path='/contactus' element={<Contact />}/>
+                <Route path='/contactus' element={<Contact />}/>
                 <Route path='/aboutus' element={<About leaders={this.state.leaders}/>}/>
                 <Route path='*' element={<HomePage/>}/>
             </Routes>
