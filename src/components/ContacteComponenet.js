@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label,Input,Col, Row, FormFeedback} from 'reactstrap';
+import {Breadcrumb, BreadcrumbItem, Button, Form, FormGroup, Label,Input,Col, FormFeedback} from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import {Link} from 'react-router-dom';
 
@@ -40,7 +40,7 @@ class Contact extends Component{
     
     handleSubmit(event){
         console.log('Current State is: ' + JSON.stringify(this.state));
-        toast('Current State is: ' + JSON.stringify(this.state));
+        toast.success('Current State is: ' + JSON.stringify(this.state), { position: toast.POSITION.TOP_LEFT, autoClose: false });
         event.preventDefault();
     }
 

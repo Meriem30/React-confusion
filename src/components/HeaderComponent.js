@@ -1,21 +1,39 @@
 import React, {Component} from 'react';
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink, Collapse, NavbarToggler} from 'reactstrap';
+import { toast } from 'react-toastify';
+import {Navbar, NavbarBrand, Nav, NavItem, NavLink, Collapse, NavbarToggler,
+     Modal, Button, ModalBody,ModalHeader, Form, FormGroup, Label, Input} from 'reactstrap';
 
 
 class Header extends Component {
     constructor (props){
         super(props);
         this.state = {
-            isNavOpen : false
+            isNavOpen : false,
+            isModelOpen : false
         };
         //to make this method accessible in ur JSX
         this.toggleNav = this.toggleNav.bind(this);
+        this.toggleModel = this.toggleModel.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
     toggleNav() {
         this.setState({
             isNavOpen : !this.state.isNavOpen
         });
+    }
+
+    toggleModel() {
+        this.setState({
+            isModelOpen : !this.state.isModelOpen
+        });
+    }
+
+    handleLogin(event) {
+        this.toggleModel();
+        toast("Username :" + this.username.value + "  Password : " + this.password.value
+         + "  Remember Me :" +this.remember.checked );
+        event.preventDefault();
     }
 
     render() {
@@ -50,6 +68,13 @@ class Header extends Component {
                                 </NavLink>
                             </NavItem>
                         </Nav>
+                        <Nav className='ml-auto' navbar>
+                            <NavItem>
+                                <Button outline onClick={this.toggleModel}>
+                                    <span className='fa fa-sign-in fa-lg'></span> Login
+                                </Button>
+                            </NavItem>
+                        </Nav>
                     </Collapse>
                 </div>
             </Navbar>
@@ -62,6 +87,31 @@ class Header extends Component {
                     </div>
                 
             </div>
+            <Modal isOpen={this.state.isModelOpen} toggle={this.toggleModel}>
+                <ModalHeader toggle={this.toggleModel}>Login</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleLogin}>
+                        <FormGroup>
+                            <Label htmlFor='username'> Username</Label>
+                            <Input type='text' name='username'  id='username'
+                            innerRef={(input) => this.username = input}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label htmlFor='password'> Password</Label>
+                            <Input type='password' name='password'  id='password'
+                             innerRef={(input) => this.password = input}/>
+                        </FormGroup>
+                        <FormGroup>
+                            <Label check>
+                                <Input type='checkbox' name='remember' 
+                                 innerRef={(input) => this.remember = input}/>
+                                  Remember Me
+                            </Label>
+                        </FormGroup>
+                        <Button type='submit' value='submit' color='primary'>Login</Button>
+                    </Form>
+                </ModalBody>
+            </Modal>
             </React.Fragment>
         );
     }
